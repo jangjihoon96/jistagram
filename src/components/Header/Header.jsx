@@ -55,7 +55,9 @@ const StyledHeader = styled.header`
   width: 15rem;
   padding: 0.625rem;
   height: 100vh;
+  background-color: #191919;
   border-right: 0.0625rem solid #444;
+  z-index: 101;
   h1 {
     padding: 1.75rem 1rem;
   }
