@@ -13,7 +13,7 @@ import { faEllipsis, faShare } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faCircleUser, faEllipsis, faHeart, faComment, faPaperPlane, faBookmark, faShare);
 
-export const PostCard = ({ children }) => {
+export const PostCard = ({ userId, alt, desc, id, like, src }) => {
   return (
     <StyledPostCard>
       <StyledTopContents>
@@ -21,7 +21,7 @@ export const PostCard = ({ children }) => {
           <span className="profileImage">
             <FontAwesomeIcon icon={faCircleUser} />
           </span>
-          <span className="profileId">jihooon2</span>
+          <span className="profileId">{userId}</span>
         </Link>
         <span className="lastHour">
           <span aria-label="hidden" className="middot">
@@ -34,10 +34,7 @@ export const PostCard = ({ children }) => {
         </button>
       </StyledTopContents>
       <StyledMiddleContents>
-        <img
-          src="http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg"
-          alt=""
-        />
+        <img src={src} alt={alt} />
       </StyledMiddleContents>
       <StyledButtonContents>
         <ContentButton>
@@ -58,13 +55,11 @@ export const PostCard = ({ children }) => {
         </ContentButton>
       </StyledButtonContents>
       <StyledLikeContents>
-        <StyledLikeCount>좋아요 0개</StyledLikeCount>
+        <StyledLikeCount>좋아요 {like}개</StyledLikeCount>
       </StyledLikeContents>
       <StyledUserContents>
-        <span className="userId">Jihooon2</span>
-        <span className="comment">
-          2023.04.03 귀여운 우리 집 갱얼쥐~ 좋아요 한번씩 누르고 가요😄
-        </span>
+        <span className="userId">{userId}</span>
+        <span className="comment">{desc}</span>
       </StyledUserContents>
       <StyledCommentContents>
         <StyledCommentCount>댓글 10개 모두 보기</StyledCommentCount>
