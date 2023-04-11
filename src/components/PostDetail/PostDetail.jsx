@@ -15,10 +15,6 @@ import { useEffect, useState } from 'react';
 library.add(faCircleUser, faEllipsis, faHeart, faComment, faPaperPlane, faBookmark, faShare);
 
 export const PostDetail = ({ userId, alt, desc, id, like, src, setPostDetailOpen }) => {
-  const [hidePost, setHidePost] = useState(true);
-  const ClosePostHandler = (e) => {
-    setHidePost(!hidePost);
-  };
   const HandlerPostDetailClose = () => {
     setPostDetailOpen(false);
   };
@@ -48,8 +44,6 @@ const StyledPostDetail = styled.div`
 `;
 
 const StyledPostDetailBox = styled.div`
-  /* max-width: 80%;
-  height: 90vh; */
   width: 70%;
   height: 90%;
   background-color: white;
