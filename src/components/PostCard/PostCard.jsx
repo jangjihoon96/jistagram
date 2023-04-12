@@ -78,7 +78,6 @@ export const PostCard = ({ userId, alt, desc, id, like, src }) => {
           </StyledCommentCount>
         </StyledCommentContents>
         <StyledInputContents>
-          {/* <input type="text" placeholder="댓글 달기..." /> */}
           <textarea placeholder="댓글 달기..." onClick={HandlerPostDetailOpen} readOnly></textarea>
           <button>
             <FontAwesomeIcon icon={faShare} />
