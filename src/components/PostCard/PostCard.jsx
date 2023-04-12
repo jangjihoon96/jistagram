@@ -10,68 +10,97 @@ import {
   faBookmark,
 } from '@fortawesome/free-regular-svg-icons';
 import { faEllipsis, faShare } from '@fortawesome/free-solid-svg-icons';
+import { PostDetail } from '@/components/PostDetail/PostDetail';
+import { PostDetailPortal } from '@/components/PostDetail/PostDetailPortal';
+import { useState } from 'react';
+import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
 
 library.add(faCircleUser, faEllipsis, faHeart, faComment, faPaperPlane, faBookmark, faShare);
 
 export const PostCard = ({ userId, alt, desc, id, like, src }) => {
+  const [postDetailOpen, setPostDetailOpen] = useState(false);
+  const { lockScroll, openScroll } = useBodyScrollLock();
+  const HandlerPostDetailOpen = () => {
+    lockScroll();
+    setPostDetailOpen(true);
+  };
   return (
-    <StyledPostCard>
-      <StyledTopContents>
-        <Link to="/" className="profileContents">
-          <span className="profileImage">
-            <FontAwesomeIcon icon={faCircleUser} />
+    <>
+      <StyledPostCard>
+        <StyledTopContents>
+          <Link to="/" className="profileContents">
+            <span className="profileImage">
+              <FontAwesomeIcon icon={faCircleUser} />
+            </span>
+            <span className="profileId">{userId}</span>
+          </Link>
+          <span className="lastHour">
+            <span aria-label="hidden" className="middot">
+              &middot;
+            </span>
+            10분
           </span>
-          <span className="profileId">{userId}</span>
-        </Link>
-        <span className="lastHour">
-          <span aria-label="hidden" className="middot">
-            &middot;
-          </span>
-          10분
-        </span>
-        <button className="moreButton">
-          <FontAwesomeIcon icon={faEllipsis} />
-        </button>
-      </StyledTopContents>
-      <StyledMiddleContents>
-        <img src={src} alt={alt} />
-      </StyledMiddleContents>
-      <StyledButtonContents>
-        <ContentButton>
-          <span className="a11y-hidden">좋아요</span>
-          <FontAwesomeIcon icon={faHeart} />
-        </ContentButton>
-        <ContentButton>
-          <span className="a11y-hidden">댓글</span>
-          <FontAwesomeIcon icon={faComment} />
-        </ContentButton>
-        <ContentButton>
-          <span className="a11y-hidden">메시지</span>
-          <FontAwesomeIcon icon={faPaperPlane} />
-        </ContentButton>
-        <ContentButton>
-          <span className="a11y-hidden">북마크</span>
-          <FontAwesomeIcon icon={faBookmark} />
-        </ContentButton>
-      </StyledButtonContents>
-      <StyledLikeContents>
-        <StyledLikeCount>좋아요 {like}개</StyledLikeCount>
-      </StyledLikeContents>
-      <StyledUserContents>
-        <span className="userId">{userId}</span>
-        <span className="comment">{desc}</span>
-      </StyledUserContents>
-      <StyledCommentContents>
-        <StyledCommentCount>댓글 10개 모두 보기</StyledCommentCount>
-      </StyledCommentContents>
-      <StyledInputContents>
-        {/* <input type="text" placeholder="댓글 달기..." /> */}
-        <textarea placeholder="댓글 달기..."></textarea>
-        <button>
-          <FontAwesomeIcon icon={faShare} />
-        </button>
-      </StyledInputContents>
-    </StyledPostCard>
+          <button className="moreButton">
+            <FontAwesomeIcon icon={faEllipsis} />
+          </button>
+        </StyledTopContents>
+        <StyledMiddleContents>
+          <img src={src} alt={alt} />
+        </StyledMiddleContents>
+        <StyledButtonContents>
+          <ContentButton>
+            <span className="a11y-hidden">좋아요</span>
+            <FontAwesomeIcon icon={faHeart} />
+          </ContentButton>
+          <ContentButton onClick={HandlerPostDetailOpen}>
+            <span className="a11y-hidden">댓글</span>
+            <FontAwesomeIcon icon={faComment} />
+          </ContentButton>
+          <ContentButton>
+            <span className="a11y-hidden">메시지</span>
+            <FontAwesomeIcon icon={faPaperPlane} />
+          </ContentButton>
+          <ContentButton>
+            <span className="a11y-hidden">북마크</span>
+            <FontAwesomeIcon icon={faBookmark} />
+          </ContentButton>
+        </StyledButtonContents>
+        <StyledLikeContents>
+          <StyledLikeCount>좋아요 {like}개</StyledLikeCount>
+        </StyledLikeContents>
+        <StyledUserContents>
+          <span className="userId">{userId}</span>
+          <span className="comment">{desc}</span>
+        </StyledUserContents>
+        <StyledCommentContents>
+          <StyledCommentCount onClick={HandlerPostDetailOpen}>
+            댓글 10개 모두 보기
+          </StyledCommentCount>
+        </StyledCommentContents>
+        <StyledInputContents>
+          {/* <input type="text" placeholder="댓글 달기..." /> */}
+          <textarea placeholder="댓글 달기..." onClick={HandlerPostDetailOpen} readOnly></textarea>
+          <button>
+            <FontAwesomeIcon icon={faShare} />
+          </button>
+        </StyledInputContents>
+      </StyledPostCard>
+      {postDetailOpen && (
+        <PostDetailPortal>
+          <PostDetail
+            setPostDetailOpen={setPostDetailOpen}
+            HandlerPostDetailClose
+            openScroll={openScroll}
+            userId={userId}
+            alt={alt}
+            desc={desc}
+            id={id}
+            like={like}
+            src={src}
+          />
+        </PostDetailPortal>
+      )}
+    </>
   );
 };
 
@@ -196,7 +225,6 @@ const StyledUserContents = styled.div`
   }
   .comment {
     margin-left: 0.5rem;
-    /* white-space: pre-wrap; */
     word-break: break-all;
   }
 `;
