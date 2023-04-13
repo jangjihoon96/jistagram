@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -46,28 +46,28 @@ export const Header = () => {
     { id: 6, icon: faCircleUser, link: '/', title: '프로필', onClick: null },
   ];
   const auth = getAuth();
+  const navigate = useNavigate();
 
+  // 로그인 정보 체크하기 (uid 체크)
   useEffect(() => {
-    const test = () => {
+    const uidCheck = () => {
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
           const uid = user.uid;
           console.log(uid);
-          // ...
         } else {
           // User is signed out
           // ...
         }
       });
     };
-    test();
+    uidCheck();
   }, []);
 
   // 로그아웃 핸들러
   const handleLogOut = () => {
     signOut(auth);
+    navigate('/login');
   };
 
   return (
