@@ -16,8 +16,9 @@ import {
 import Logo from '@/assets/icons/logo.svg';
 import { PostDetail } from '@/components/PostDetail/PostDetail';
 import { PostDetailPortal } from '@/components/PostDetail/PostDetailPortal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 
 library.add(
   faCompass,
@@ -44,6 +45,30 @@ export const Header = () => {
     { id: 5, icon: faSquarePlus, link: '/', title: '만들기', onClick: null },
     { id: 6, icon: faCircleUser, link: '/', title: '프로필', onClick: null },
   ];
+  const auth = getAuth();
+
+  useEffect(() => {
+    const test = () => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          const uid = user.uid;
+          console.log(uid);
+          // ...
+        } else {
+          // User is signed out
+          // ...
+        }
+      });
+    };
+    test();
+  }, []);
+
+  // 로그아웃 핸들러
+  const handleLogOut = () => {
+    signOut(auth);
+  };
 
   return (
     <>
@@ -68,7 +93,7 @@ export const Header = () => {
           </ul>
         </StyledNav>
         <BottomContainer>
-          <LogOutButton>
+          <LogOutButton onClick={handleLogOut}>
             <FontAwesomeIcon icon={faArrowRightFromBracket} />
             <span>로그아웃</span>
           </LogOutButton>
