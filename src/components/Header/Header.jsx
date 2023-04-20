@@ -55,6 +55,7 @@ export const Header = () => {
         if (user) {
           const uid = user.uid;
           console.log(uid);
+          console.log(user);
         } else {
           // User is signed out
           // ...

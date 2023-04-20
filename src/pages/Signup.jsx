@@ -7,6 +7,7 @@ export const Signup = () => {
     name: '',
     email: '',
     password: '',
+    nickname: '',
   };
 
   const [email, setEmail] = useState('');
