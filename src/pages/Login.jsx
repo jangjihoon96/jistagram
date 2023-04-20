@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 
 import logo from '@/assets/icons/logo.svg';
 import { SignInput } from '@/components/Input/SignInput';
@@ -41,6 +41,20 @@ export const Login = () => {
         const errorMessage = error.message;
       });
   };
+
+  useEffect(() => {
+    const loginCheckAndMove = () => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const uid = user.uid;
+          navigate('/home');
+        } else {
+          navigate('/login');
+        }
+      });
+    };
+    loginCheckAndMove();
+  }, []);
 
   return (
     <StyledLoginContainer>
