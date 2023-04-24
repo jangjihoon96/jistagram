@@ -1,5 +1,5 @@
 import { getAuth } from 'firebase/auth';
-import app from '@service/app';
+import app from '@/@service/app';
 import { getFirestore } from 'firebase/firestore';
 
 export const db = getFirestore(app);
