@@ -6,6 +6,8 @@ import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebas
 import logo from '@/assets/icons/logo.svg';
 import { SignInput } from '@/components/Input/SignInput';
 import { SignSubmitButton } from '@/components/Button/SignSubmitButton';
+import { FormContainer } from '@/components/Container/FormContainer';
+import { HeadingOne } from '@/components/Heading/HeadingOne';
 
 export const Login = () => {
   const initialFormState = {
@@ -58,11 +60,11 @@ export const Login = () => {
 
   return (
     <StyledLoginContainer>
-      <LoginLogoContainer>
+      <HeadingOne>
         <img src={logo} alt="Jistagram" />
-      </LoginLogoContainer>
+      </HeadingOne>
       <h2 className="a11y-hidden">Login</h2>
-      <Loginform>
+      <FormContainer>
         <SignInput
           type={'email'}
           htmlFor={'userEmail'}
@@ -80,7 +82,7 @@ export const Login = () => {
         <SignSubmitButton type={'button'} onClick={handleSignIn}>
           로그인
         </SignSubmitButton>
-      </Loginform>
+      </FormContainer>
       <StyledMoveSignUp>
         <Link to="/signup">회원가입 하기</Link>
       </StyledMoveSignUp>
@@ -99,37 +101,6 @@ const LoginLogoContainer = styled.h1`
   margin-top: 6.25rem;
   img {
     width: 18.75rem;
-  }
-`;
-
-const Loginform = styled.form`
-  width: 100%;
-  display: flex;
-  flex-flow: column nowrap;
-  margin-top: 2.5rem;
-  label {
-    display: block;
-    width: 100%;
-  }
-  input {
-    width: 100%;
-    height: 3.5rem;
-    padding: 0 1.5rem;
-    background-color: #191919;
-    border: 0.0625rem solid #444444;
-    border-radius: 0.625rem;
-    font-size: 1rem;
-    color: #ffffff;
-  }
-  input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 1000px #191919 inset;
-    -webkit-text-fill-color: #ffffff;
-  }
-  label + label {
-    margin-top: 1.25rem;
-  }
-  label + button {
-    margin-top: 1.25rem;
   }
 `;
 
