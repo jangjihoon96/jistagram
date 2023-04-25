@@ -1,8 +1,14 @@
+import styled from 'styled-components/macro';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useEffect, useRef, useState } from 'react';
 import { useCreateAuthUser } from '@/@service/firestore';
 import { useAuthState, useSignUp } from '@/@service/auth';
+import { SignInput } from '@/components/Input/SignInput';
+import { SignSubmitButton } from '@/components/Button/SignSubmitButton';
+import { SignContainer } from '@/components/Container/SignContainer';
+import { FormContainer } from '@/components/Container/FormContainer';
+import { HeadingOne } from '@/components/Heading/HeadingOne';
 
 const initialFormState = {
   name: '',
@@ -42,35 +48,59 @@ export const Signup = () => {
   };
 
   return (
-    <div>
-      <h2>Signup</h2>
-      <form>
-        <label htmlFor="userName">이름</label>
-        <input type="text" id="userName" name={'name'} onChange={handleChangeInput} required />
-        <br />
-        <label htmlFor="userNickname">닉네임</label>
-        <input
-          type="text"
-          id="userNickname"
+    <SignContainer>
+      <HeadingOne>회원가입</HeadingOne>
+      <FormContainer>
+        <SignInput
+          type={'text'}
+          htmlFor={'userName'}
+          name={'name'}
+          placeholder={'이름을 입력하세요.'}
+          onChange={handleChangeInput}
+        />
+        <SignInput
+          type={'text'}
+          htmlFor={'userNickname'}
           name={'nickname'}
+          placeholder={'닉네임을 입력하세요.'}
           onChange={handleChangeInput}
-          required
         />
-        <br />
-        <label htmlFor="userEmail">Email</label>
-        <input type="email" id="userEmail" name={'email'} onChange={handleChangeInput} required />
-        <br />
-        <label htmlFor="userPassword">Password</label>
-        <input
-          type="password"
-          id="userPassword"
+        <SignInput
+          type={'email'}
+          htmlFor={'userEmail'}
+          name={'email'}
+          placeholder={'이메일을 입력하세요.'}
+          onChange={handleChangeInput}
+        />
+        <SignInput
+          type={'password'}
+          htmlFor={'userPassword'}
           name={'password'}
+          placeholder={'비밀번호를 입력하세요.'}
           onChange={handleChangeInput}
-          required
         />
-        <br />
-        <button onClick={handleSubmit}>회원가입 완료</button>
-      </form>
-    </div>
+        <SignSubmitButton type={'button'} onClick={handleSubmit}>
+          회원가입 완료
+        </SignSubmitButton>
+      </FormContainer>
+      <StyledMoveLogin>
+        <Link to="/login">로그인 하기</Link>
+      </StyledMoveLogin>
+    </SignContainer>
   );
 };
+
+const StyledMoveLogin = styled.div`
+  margin-top: 2.5rem;
+  text-align: center;
+  a {
+    display: inline-block;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    padding: 0 2rem;
+    color: #aaaaaa;
+  }
+  a:hover {
+    color: #ffffff;
+  }
+`;
