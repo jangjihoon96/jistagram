@@ -39,6 +39,7 @@ export const Login = () => {
       })
       .catch((error) => {
         console.log('로그인 실패');
+        alert('로그인 정보를 확인해주세요.');
         const errorCode = error.code;
         const errorMessage = error.message;
       });
