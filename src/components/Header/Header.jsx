@@ -126,6 +126,20 @@ const StyledHeader = styled.header`
   h1 {
     padding: 1.75rem 1rem;
   }
+  @media screen and (max-width: 1028px) {
+    width: 12rem;
+  }
+  @media screen and (max-width: 768px) {
+    width: 4rem;
+    h1 {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: polygon(0 0, 0 0, 0 0);
+    }
+  }
 `;
 
 const StyledNav = styled.nav`
@@ -155,6 +169,24 @@ const StyledNav = styled.nav`
   span {
     margin-left: 1.25rem;
   }
+  @media screen and (max-width: 768px) {
+    button {
+      justify-content: center;
+      padding: 0.75rem 0.375rem;
+    }
+    svg {
+      width: 1.3rem;
+      height: 1.3rem;
+    }
+    span {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: polygon(0 0, 0 0, 0 0);
+    }
+  }
 `;
 
 const BottomContainer = styled.div`
@@ -183,5 +215,21 @@ const LogOutButton = styled.button`
   }
   span {
     margin-left: 1.25rem;
+  }
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+    padding: 0.75rem 0.75rem;
+    svg {
+      width: 1.3rem;
+      height: 1.3rem;
+    }
+    span {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: polygon(0 0, 0 0, 0 0);
+    }
   }
 `;
